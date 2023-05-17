@@ -12,18 +12,18 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Entity.name, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var entities: FetchedResults<Entity>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(entities) { entity in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text("Entity named \(entity.name)")
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        Text("Entity at \(entity.body)")
                     }
                 }
                 .onDelete(perform: deleteItems)
